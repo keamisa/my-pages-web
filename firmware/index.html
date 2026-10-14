@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tải firmware iOS, iPadOS, macOS · Tên Bạn</title>
+<style>
+:root{--bg:#edf1f7;--ink:#0b1220;--muted:#5a6477;--accent:#2a6cf0;--glass:rgba(255,255,255,.58);--line:rgba(18,30,55,.1);--hi:rgba(255,255,255,.9);--shadow:rgba(30,45,80,.28);--on:#fff;--a1:#8fd0ff;--a2:#c5b2ff;--a3:#ffcfe3;--ok:#14864a;--warn:#b2580c;--no:#8a93a6;color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);box-sizing:border-box}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#05070d;--ink:#eef2f9;--muted:#98a2b6;--accent:#8cc6ff;--glass:rgba(255,255,255,.07);--line:rgba(255,255,255,.11);--hi:rgba(255,255,255,.2);--shadow:rgba(0,0,0,.7);--on:rgba(255,255,255,.14);--a1:#1f4fd6;--a2:#6d35d8;--a3:#b8226f;--ok:#5fdc93;--warn:#ffb46e;--no:#8a93a6;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#05070d;--ink:#eef2f9;--muted:#98a2b6;--accent:#8cc6ff;--glass:rgba(255,255,255,.07);--line:rgba(255,255,255,.11);--hi:rgba(255,255,255,.2);--shadow:rgba(0,0,0,.7);--on:rgba(255,255,255,.14);--a1:#1f4fd6;--a2:#6d35d8;--a3:#b8226f;--ok:#5fdc93;--warn:#ffb46e;color-scheme:dark}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:16px/1.6 "Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:hidden}
+.aura{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.aura i{position:absolute;width:70vmax;height:70vmax;border-radius:50%;opacity:.5}
+.aura i:nth-child(1){background:radial-gradient(circle,var(--a1),transparent 62%);top:-30vmax;left:-20vmax}
+.aura i:nth-child(2){background:radial-gradient(circle,var(--a2),transparent 62%);top:-10vmax;right:-30vmax}
+.aura i:nth-child(3){background:radial-gradient(circle,var(--a3),transparent 62%);bottom:-35vmax;left:10vmax}
+.glass{background:var(--glass);-webkit-backdrop-filter:blur(26px) saturate(170%);backdrop-filter:blur(26px) saturate(170%);border:1px solid var(--line);border-radius:26px;box-shadow:inset 0 1px 0 var(--hi),0 24px 60px -30px var(--shadow)}
+.page{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:14px 16px 48px;display:grid;gap:22px}
+a{color:inherit}a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 20px;border-radius:999px;border:0;font:600 15px inherit;font-family:inherit;text-decoration:none;cursor:pointer;color:var(--ink);background:var(--glass);box-shadow:inset 0 1px 1px var(--hi),0 10px 26px -12px var(--shadow);transition:transform .15s}
+.btn:active{transform:scale(.96)}
+.btn.solid{color:#fff;background:linear-gradient(135deg,#4084ff,#8a62ff)}
+.btn.sm{min-height:40px;padding:0 16px;font-size:14px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:8px}
+h1{margin:0;font-weight:800;font-size:clamp(30px,6vw,48px);line-height:1.18;letter-spacing:-.035em;text-wrap:balance}
+.lede{margin:0;color:var(--muted);max-width:60ch}
+.sample{padding:12px 16px;border-radius:18px;border:1px dashed var(--warn);color:var(--warn);font-size:14px}
+.bar{display:grid;gap:10px;padding:12px}
+.tabs{display:flex;gap:4px;padding:4px;border-radius:999px;background:var(--on);overflow-x:auto;scrollbar-width:none}
+.tabs button{flex:1;appearance:none;border:0;background:transparent;color:var(--ink);font:600 14px inherit;font-family:inherit;min-height:44px;padding:0 16px;border-radius:999px;cursor:pointer;opacity:.75;white-space:nowrap}
+.tabs button[aria-pressed="true"]{background:var(--glass);color:var(--accent);opacity:1;box-shadow:inset 0 1px 0 var(--hi),0 4px 14px -6px var(--shadow)}
+.q{width:100%;min-height:44px;border-radius:999px;border:1px solid var(--line);background:var(--on);color:var(--ink);padding:0 18px;font:inherit}
+.q::placeholder{color:var(--muted)}
+.list{display:grid;gap:12px}
+.fw{padding:0;overflow:hidden}
+.fw summary{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;padding:16px 18px;cursor:pointer;list-style:none;min-height:44px}
+.fw summary::-webkit-details-marker{display:none}
+.fw h2{margin:0;font-size:18px;line-height:1.3;font-weight:700;letter-spacing:-.01em}
+.meta{grid-column:1/-1;color:var(--muted);font-size:13.5px}
+.tag{font-size:12.5px;font-weight:700;padding:4px 11px;border-radius:999px;background:var(--on);white-space:nowrap}
+.t-chinh-thuc{color:var(--ok)}.t-beta{color:var(--warn)}.t-rc{color:var(--accent)}
+.sig{font-weight:600}.sig.on{color:var(--ok)}.sig.off{color:var(--no)}
+.devs{border-top:1px solid var(--line);padding:6px 18px 14px;display:grid}
+.dev{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.dev:last-child{border-bottom:0}
+.dev b{font-size:15px}.dev small{display:block;color:var(--muted);font-size:12.5px}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.empty{padding:28px;text-align:center;color:var(--muted)}
+.note{color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<div class="aura" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="page">
+  <div class="top"><a class="btn sm" id="home" href="#">‹ Trang chủ</a></div>
+  <header>
+    <h1>Tải firmware iOS, iPadOS, macOS</h1>
+    <p class="lede">Bản chính thức, beta và RC cho iPhone, iPad và Mac chip Apple. Link tải trỏ thẳng đến máy chủ Apple, không qua trung gian.</p>
+  </header>
+  <div class="sample" id="sample" hidden>Đây là dữ liệu mẫu. Thay bằng bản thật trong khối FIRMWARE ở đầu phần script trước khi đăng.</div>
+
+  <div class="bar glass">
+    <div class="tabs" id="os" role="group" aria-label="Hệ điều hành"></div>
+    <div class="tabs" id="type" role="group" aria-label="Loại bản"></div>
+    <input class="q" id="q" type="search" placeholder="Tìm theo máy hoặc phiên bản, ví dụ iPhone 17 hoặc 27.2" aria-label="Tìm firmware">
+  </div>
+
+  <div class="list" id="list" aria-live="polite"></div>
+  <p class="note" id="count"></p>
+  <p class="note">Mẹo: nhấn vào một phiên bản để xem danh sách máy. Chỉ cài được bản còn được Apple ký.</p>
+</div>
+
+<script>
+/* ===== DỮ LIỆU: sửa tại đây =====
+   Mỗi phiên bản: os ("iOS" | "iPadOS" | "macOS"), ver, build, type ("chinh-thuc" | "beta" | "rc"),
+   date (YYYY-MM-DD), signed (true/false), devices: [{n: tên máy, id: mã máy, size: dung lượng, u: link tải từ Apple}]
+   Đặt SAMPLE = false khi đã nhập dữ liệu thật. */
+var SAMPLE=true, HOME="../";
+var FIRMWARE=[
+  {os:"iOS",ver:"27.2 beta 4",build:"XXXXXX",type:"beta",date:"2026-10-13",signed:true,devices:[
+    {n:"iPhone 18 Pro Max",id:"iPhone18,x",size:"~9 GB",u:"#"},{n:"iPhone 18 Pro",id:"iPhone18,x",size:"~9 GB",u:"#"},{n:"iPhone 17 Pro Max",id:"iPhone17,x",size:"~9 GB",u:"#"}]},
+  {os:"iOS",ver:"27.1",build:"XXXXXX",type:"chinh-thuc",date:"2026-09-22",signed:true,devices:[
+    {n:"iPhone 18 Pro Max",id:"iPhone18,x",size:"~9 GB",u:"#"},{n:"iPhone 17 Pro Max",id:"iPhone17,x",size:"~9 GB",u:"#"},{n:"iPhone 17",id:"iPhone17,x",size:"~8.5 GB",u:"#"}]},
+  {os:"iOS",ver:"26.6.1",build:"XXXXXX",type:"chinh-thuc",date:"2026-08-10",signed:false,devices:[
+    {n:"iPhone 17 Pro Max",id:"iPhone17,x",size:"~8.5 GB",u:"#"},{n:"iPhone 13 Pro Max",id:"iPhone14,3",size:"~7 GB",u:"#"}]},
+  {os:"iPadOS",ver:"27.2 beta 4",build:"XXXXXX",type:"beta",date:"2026-10-13",signed:true,devices:[
+    {n:"iPad Pro M5",id:"iPad17,x",size:"~9 GB",u:"#"},{n:"iPad Pro M2",id:"iPad14,x",size:"~8 GB",u:"#"}]},
+  {os:"iPadOS",ver:"27.1",build:"XXXXXX",type:"chinh-thuc",date:"2026-09-22",signed:true,devices:[
+    {n:"iPad Pro M5",id:"iPad17,x",size:"~9 GB",u:"#"},{n:"iPad Pro M2",id:"iPad14,x",size:"~8 GB",u:"#"}]},
+  {os:"macOS",ver:"27.1 RC",build:"XXXXXX",type:"rc",date:"2026-09-15",signed:false,devices:[
+    {n:"MacBook Pro M5 Pro",id:"Mac17,x",size:"~16 GB",u:"#"},{n:"MacBook Pro M4 Pro",id:"Mac16,x",size:"~16 GB",u:"#"}]}
+];
+(function(){
+  var $=function(i){return document.getElementById(i)},st={os:"iOS",type:"all",q:""};
+  var TY={all:"Tất cả","chinh-thuc":"Chính thức",beta:"Beta",rc:"RC"},TN={"chinh-thuc":"Chính thức",beta:"Beta",rc:"RC"};
+  $("home").href=HOME;$("sample").hidden=!SAMPLE;
+  function seg(box,vals,key,labels){vals.forEach(function(v){var b=document.createElement("button");b.type="button";b.textContent=labels?labels[v]:v;b.dataset.v=v;
+    b.onclick=function(){st[key]=v;sync(box,key);render()};box.appendChild(b)});sync(box,key)}
+  function sync(box,key){Array.prototype.forEach.call(box.children,function(b){b.setAttribute("aria-pressed",b.dataset.v===st[key])})}
+  seg($("os"),["iOS","iPadOS","macOS"],"os");seg($("type"),["all","chinh-thuc","beta","rc"],"type",TY);
+  $("q").oninput=function(){st.q=this.value.trim().toLowerCase();render()};
+  function fmt(d){try{return new Date(d).toLocaleDateString("vi-VN",{day:"numeric",month:"numeric",year:"numeric"})}catch(e){return d}}
+  function render(){
+    var L=$("list");L.textContent="";var n=0;
+    FIRMWARE.filter(function(f){return f.os===st.os&&(st.type==="all"||f.type===st.type)})
+    .sort(function(a,b){return b.date<a.date?-1:1}).forEach(function(f){
+      var devs=f.devices.filter(function(d){return !st.q||(d.n+" "+d.id+" "+f.ver+" "+f.build).toLowerCase().indexOf(st.q)>-1});
+      if(!devs.length)return;n++;
+      var el=document.createElement("details");el.className="fw glass";if(st.q)el.open=true;
+      var s=document.createElement("summary");
+      var h=document.createElement("h2");h.textContent=f.os+" "+f.ver;
+      var tg=document.createElement("span");tg.className="tag t-"+f.type;tg.textContent=TN[f.type];
+      var m=document.createElement("span");m.className="meta";
+      var sg=document.createElement("span");sg.className="sig "+(f.signed?"on":"off");sg.textContent=f.signed?"Còn được ký":"Đã ngừng ký";
+      m.append("Build "+f.build+" · "+fmt(f.date)+" · ",sg);
+      s.append(h,tg,m);el.appendChild(s);
+      var box=document.createElement("div");box.className="devs";
+      devs.forEach(function(d){var r=document.createElement("div");r.className="dev";
+        var t=document.createElement("div"),b=document.createElement("b"),sm=document.createElement("small");b.textContent=d.n;sm.textContent=d.id+(d.size?" · "+d.size:"");t.append(b,sm);
+        var row=document.createElement("div");row.className="row";
+        var a=document.createElement("a");a.className="btn solid sm";a.href=d.u;a.target="_blank";a.rel="noopener";a.textContent="Tải về";
+        var c=document.createElement("button");c.type="button";c.className="btn sm";c.textContent="Chép link";
+        c.onclick=function(){try{navigator.clipboard.writeText(new URL(d.u,location.href).href).then(function(){c.textContent="Đã chép";setTimeout(function(){c.textContent="Chép link"},1500)})}catch(e){}};
+        row.append(a,c);r.append(t,row);box.appendChild(r)});
+      el.appendChild(box);L.appendChild(el)});
+    if(!n){var e=document.createElement("div");e.className="empty glass";e.textContent="Chưa có bản nào khớp. Thử đổi loại bản hoặc xoá từ khoá tìm kiếm.";L.appendChild(e)}
+    $("count").textContent=n+" phiên bản";
+  }
+  render();
+})();
+</script>
+</body>
+</html>

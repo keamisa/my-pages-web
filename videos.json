@@ -1,0 +1,7 @@
+{
+  "latest": [
+    {"id": "MA_VIDEO_1", "title": "Tiêu đề video mới nhất"},
+    {"id": "MA_VIDEO_2", "title": "Tiêu đề video thứ hai"},
+    {"id": "MA_VIDEO_3", "title": "Tiêu đề video thứ ba"}
+  ]
+}
